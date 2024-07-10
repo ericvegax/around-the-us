@@ -1,0 +1,30 @@
+@import url('../vendor/normalize.css');
+@import url('../vendor/fonts.css');
+@import url('../blocks/page.css');
+@import url('../blocks/header.css');
+@import url('../blocks/content.css');
+@import url('../blocks/footer.css');
+@import url('../blocks/profile.css');
+@import url('../blocks/cards.css');
+@import url('../blocks/card.css');
+
+.page {
+    background-color: black;
+    color: white;
+    font-family: "Inter", Arial, Helvetica, sans-serif;
+}
+
+.page__section {
+    max-width: 880px;
+}
+
+.page__content {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.header {
+    margin-top: 45px;
+    max-width: 880px;
+}
