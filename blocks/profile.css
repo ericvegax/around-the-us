@@ -56,7 +56,7 @@
     background: transparent url("../images/edit-icon.svg") center
       no-repeat;
     border: white 1px solid;
-    grid-area: "button";
+    grid-area: button;
     margin-left: 18px;
     cursor: pointer;
   }
