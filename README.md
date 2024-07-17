@@ -56,6 +56,9 @@
 
 This project is a clean profile type website page with a minimalist style to let the content have the floor. The css grid gallery allows the images to display all at once in thumbnail form or in full screen view upon tapping or selecting an image. The user is able to create, update. and delete items in their card gallery as well as update their profile info.
 
+![Desktop](./images/gif/desktop-gif.gif)
+![Mobile](./images/gif/mobile-gif.gif)
+
 ## Author
 
 - Github - [Eric](https://github.com/ericvegax)
