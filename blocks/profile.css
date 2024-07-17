@@ -71,6 +71,7 @@
     cursor: pointer;
     border-radius: 2px;
   }
+  
   /*button:hover*/
   .profile__add-button:hover {
     opacity: 0.6;
