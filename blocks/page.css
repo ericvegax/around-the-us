@@ -18,8 +18,8 @@
 }
 
 /*320px*/
-@media screen and (min-width: 320px) and (max-width: 918px) {
+@media screen and (min-width: 320px) and (max-width: 918px) { /* 320 and up, 918 and below */
   .page__section {
-    width: calc(100% - 38px);
+    width: calc(100% - 38px); /* 100% of the parent minus 38 pixels */
   }
 }
