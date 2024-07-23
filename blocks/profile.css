@@ -2,6 +2,7 @@
 .profile {
   display: flex;
   align-items: center;
+  justify-content: center;
   margin-bottom: 51px;
   margin-top: 40px;
 }
@@ -66,8 +67,7 @@
   height: 50px;
   width: 150px;
   margin-left: auto;
-  background: transparent url("../images/add-icon.svg") center
-    no-repeat;
+  background: transparent url("../images/add-icon.svg") center no-repeat;
   border: white 2px solid;
   cursor: pointer;
   border-radius: 2px;
@@ -111,18 +111,17 @@
     font-size: 22px;
     line-height: 27px;
     max-width: 196px;
+    text-align: center; /* Align title to center */
+    margin-bottom: 0;
   }
 
   .profile__edit-button {
     height: 18px;
     width: 18px;
-    align-self: flex-start;
     margin-left: 10px;
-    margin-top: 4px;
   }
 
   .profile__add-button {
-    /*width: 100%;*/
     margin-top: 36px;
     margin-bottom: 36px;
     width: calc(100% - 38px);

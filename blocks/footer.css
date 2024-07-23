@@ -17,16 +17,15 @@
   .footer {
     padding-left: 19px;
     grid-area: footer;
-    
   }
 }
 
 @media screen and (max-width: 580px) {
   .footer {
-    margin: 0 19px 36px;
+    margin: 0 19px;
     padding-left: 0;
     grid-area: footer;
-    padding-bottom: 0; /* removes the large gap */
+    padding-bottom: 36px; /* Adjust bottom padding, exactly like spec sheet now */
   }
 
   .footer__copyright {
