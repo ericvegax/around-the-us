@@ -58,6 +58,7 @@ This project is a clean profile type website page with a minimalist style to let
 
 ![Desktop](./images/gif/desktop-gif.gif)
 ![Mobile](./images/gif/mobile-gif.gif)
+[![Watch the video](./images/around-us-thumbnail.jpg)](https://drive.google.com/file/d/11InN-DAoVAT69ieSLBWSpYw2Ns8DSVoM/view?usp=sharing)
 
 ## Author
 

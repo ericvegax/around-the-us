@@ -10,6 +10,7 @@
     height: 282px;
     border-radius: 10px 10px 0 0;
   }
+  
   .card__descr {
     display: flex;
     background-color: white;
@@ -19,6 +20,7 @@
     justify-content: space-between;
     border-radius: 0 0 10px 10px;
   }
+
   .card__text {
     font-family: "Inter", sans-serif;
     font-style: normal;
@@ -38,9 +40,10 @@
     width: 21px;
     border: none;
     cursor: pointer;
-    transition: 0.5s ease-in;
+    transition: 0.2s ease-in;
   }
   
   .card__like-button:hover {
     cursor: pointer;
+    opacity: 0.6;
   }
