@@ -1,6 +1,7 @@
 .footer {
   padding-top: 67px;
   padding-bottom: 60px;
+  grid-area: footer;
 }
 
 .footer__copyright {
@@ -16,7 +17,6 @@
 @media screen and (max-width: 880px) {
   .footer {
     padding-left: 19px;
-    grid-area: footer;
   }
 }
 
@@ -24,7 +24,6 @@
   .footer {
     margin: 0 19px;
     padding-left: 0;
-    grid-area: footer;
     padding-bottom: 36px; /* Adjust bottom padding, exactly like spec sheet now */
   }
 
