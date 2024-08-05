@@ -109,6 +109,44 @@
       </footer>
     </div>
 
+    <div class="modal" id="profile-edit-modal">
+      <div class="modal__container">
+        <button
+          class="modal__close"
+          id="modal-profile-close-button"
+          type="button"
+        ></button>
+        <h2 class="modal__heading">Edit profile</h2>
+        <form class="modal__form" id="profile-edit-form" novalidate>
+          <input
+            class="modal__input"
+            type="text"
+            placeholder="name"
+            id="title-input"
+            minlength="2"
+            maxlength="40"
+            required
+            name="title"
+          />
+          <span class="modal__error" id="title-input-error"></span>
+
+          <input
+            class="modal__input"
+            type="text"
+            placeholder="description"
+            id="profile-input"
+            minlength="2"
+            maxlength="200"
+            required
+            name="description"
+          />
+          <span class="modal__error" id="profile-input-error"></span>
+          <button type="submit" class="modal__button modal__button_disabled" disabled>Save</button>
+        </form>
+      </div>
+    </div>
+
+
     <!-- scripts -->
      <script src="./scripts/index.js"></script>
   </body>
