@@ -5,9 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width,initial-scale=1.0" />
     <title>Around the U.S.</title>
-    <!--/styles/style.css-->
     <link rel="stylesheet" href="./pages/index.css" />
-    <!--/favicon.ico-->
     <link rel="icon" href="./favicon.ico" />
   </head>
   <body class="page">
@@ -108,46 +106,44 @@
         <p class="footer__copyright">© 2022 Around the U.S.</p>
       </footer>
     </div>
-
+     <!--/modal-->
+    <!-- Modal fix open and close 2023/02/01-->
     <div class="modal" id="profile-edit-modal">
       <div class="modal__container">
-        <button
-          class="modal__close"
-          id="modal-profile-close-button"
-          type="button"
-        ></button>
-        <h2 class="modal__heading">Edit profile</h2>
-        <form class="modal__form" id="profile-edit-form" novalidate>
+        <button class="modal__close" id="modal-close-button"></button>
+        <p class="modal__heading">Edit profile</p>
+        <form class="modal__form" id="profile-edit-form">
           <input
-            class="modal__input"
+            class="modal__form-input"
             type="text"
-            placeholder="name"
-            id="title-input"
-            minlength="2"
-            maxlength="40"
-            required
             name="title"
-          />
-          <span class="modal__error" id="title-input-error"></span>
-
-          <input
-            class="modal__input"
-            type="text"
-            placeholder="description"
-            id="profile-input"
-            minlength="2"
-            maxlength="200"
+            placeholder="Name"
+            id="profile-title-input"
             required
-            name="description"
           />
-          <span class="modal__error" id="profile-input-error"></span>
-          <button type="submit" class="modal__button modal__button_disabled" disabled>Save</button>
+          <input
+            class="modal__form-input"
+            type="text"
+            name="description"
+            placeholder="Description"
+            id="profile-descr-input"
+            required
+          />
+          <button class="modal__button">Save</button>
         </form>
       </div>
     </div>
-
-
+    <!-- Modal -->
+    <template id="element-template">
+      <li class="element">
+        <img class="element__img" src="#" alt="" id="element-image" />
+        <div class="element__descr">
+          <h2 class="element__text" id="element-title"></h2>
+          <button class="element__like-button" type="button"></button>
+        </div>
+      </li>
+    </template>
     <!-- scripts -->
-     <script src="./scripts/index.js"></script>
+     <script src="./scripts/index.js" defer></script>
   </body>
 </html>
