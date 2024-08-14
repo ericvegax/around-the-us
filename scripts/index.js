@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
-    const initializeCards = [
+    const initialCards = [
       {
         name: "Yosemite Valley",
         link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/yosemite.jpg",
@@ -87,7 +87,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   
     if (elementListElement && elementTemplate) {
-      initializeCards.forEach((elementData) => {
+      initialCards.forEach((elementData) => {
         const elementView = getElementView(elementData);
         renderElement(elementView, elementListElement);
       });
