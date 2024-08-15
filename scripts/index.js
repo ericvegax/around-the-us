@@ -35,7 +35,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const profileDescriptionInput = document.querySelector("#profile-descr-input");
     const profileEditForm = document.querySelector("#profile-edit-form");
   
-    const elementListElement = document.querySelector(".cards__list");
+    const elementListElement = document.querySelector(".elements__list");
     const elementTemplate = document.querySelector("#element-template").content.firstElementChild;
   
     function closePopUp(popUp) {
