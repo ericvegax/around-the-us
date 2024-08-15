@@ -61,11 +61,16 @@ document.addEventListener("DOMContentLoaded", () => {
       const element = elementTemplate.cloneNode(true);
       const elementImageElement = element.querySelector(".element__img");
       const elementTitleElement = element.querySelector(".element__text");
+      const likeButton = element.querySelector(".element__like-button");
   
       elementImageElement.src = elementData.link;
       elementImageElement.alt = elementData.name;
       elementTitleElement.textContent = elementData.name;
       return element;
+    }
+
+    function deleteElement(e) {
+      e.target.closest(".element").remove();
     }
   
     if (profileEditButton) {
