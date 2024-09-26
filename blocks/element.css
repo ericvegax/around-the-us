@@ -1,9 +1,10 @@
+/*elements<cards>*/
 .element {
   display: flex;
   flex-direction: column;
   list-style: none;
 }
-
+/*element__image*/
 .element__img {
   width: 282px;
   object-fit: fill;
@@ -33,16 +34,39 @@
   margin-top: 0;
 }
 
+/*element__heart-button*/
 .element__like-button {
-  background: transparent url("../images/like-inactive.svg") center no-repeat;
+  background: transparent url(../images/icons/Like\ Button_disabled.svg)
+    center;
+  flex-shrink: 0;
   height: 18px;
   width: 21px;
   border: none;
   cursor: pointer;
-  transition: 0.2s ease-in;
+  transition: 0.5s ease-in;
 }
 
+/*button states*/
+/*button:hover*/
 .element__like-button:hover {
-  opacity: 0.6;
+  opacity: 0.5;
   cursor: pointer;
+}
+.element__like-button_active {
+  background: url(../images/icons/like-button-active.svg);
+}
+
+.element__delete-button {
+  background: transparent url(../images/icons/delete-icon.svg) center no-repeat;
+  width: 18px;
+  height: 20px;
+  cursor: pointer;
+  border: none;
+  position: relative;
+  top: 36px;
+  left: calc(100% - 33px);
+}
+
+.element__delete-button:hover {
+  opacity: 0.6;
 }

@@ -1,5 +1,3 @@
-# Project 3: Around the U.S.
-
 ## Table of contents
 
 - [Overview](#overview)
