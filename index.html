@@ -63,7 +63,7 @@
       <div class="modal__container">
         <button class="modal__close" id="modal-close-button"></button>
         <h2 class="modal__heading">Edit profile</h2>
-        <form class="modal__form" id="profile-edit-form" name="profileForm">
+        <form class="modal__form" id="profile-edit-form" name="profileForm" novalidate>
           <label for="name">name</label>
           <input
             class="modal__form-input"
@@ -72,8 +72,9 @@
             id="profile-title-input"
             minlength="2"
             maxlength="40"
+            required
           />
-          <div class="error-message" id="name-error-message"></div>
+          <div class="modal__error" id="name-error-message"></div>
           <label for="description">description</label>
           <input
             class="modal__form-input"
@@ -82,8 +83,9 @@
             id="profile-descr-input"
             minlength="2"
             maxlength="200"
+            required
           />
-          <div class="error-message" id="about-error-message"></div>
+          <div class="modal__error" id="about-error-message"></div>
           <button type="submit" name="save" id="save" class="modal__button inactive" disabled>Save</button>
         </form>
       </div>
@@ -92,24 +94,28 @@
       <div class="modal__container">
         <button class="modal__close" id="element-add-close"></button>
         <p class="modal__heading">New Location</p>
-        <form class="modal__form" id="element-add-form">
+        <form name="newPlaceForm" class="modal__form" id="new-place-form" novalidate>
           <input
             class="modal__form-input"
             type="text"
             name="title"
             placeholder="Title"
             id="element-title-input"
+            minlength="1"
+            maxlength="30"
             required
           />
+          <div class="modal__error" id="title-error-message"></div>
           <input
             class="modal__form-input"
-            type="text"
+            type="url"
             name="url"
             placeholder="Image Link"
             id="element-image-input"
             required
           />
-          <button class="modal__button">Create</button>
+          <div class="modal__error" id="image-error-message"></div>
+          <button type="submit" class="modal__button inactive" id="add" disabled>Create</button>
         </form>
       </div>
     </div>
@@ -142,5 +148,6 @@
     </template>
     <!--/scripts-->
     <script src="./scripts/scripts.js" defer></script>
+    <script src="./scripts/validate.js"></script>
   </body>
 </html>

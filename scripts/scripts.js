@@ -1,4 +1,3 @@
-
 const initializeCards = [
   {
     //object 1
@@ -40,7 +39,6 @@ const profileTitle = document.querySelector("#profile-title");
 const profileDescription = document.querySelector("#profile-descr");
 const profileTitleInput = document.querySelector("#profile-title-input");
 const profileDescriptionInput = document.querySelector("#profile-descr-input");
-
 const profileEditForm = profileEditModal.querySelector("#profile-edit-form");
 
 /**  element **/
@@ -52,9 +50,9 @@ const elementTitleInput = document.querySelector("#element-title-input");
 const elementImageInput = document.querySelector("#element-image-input");
 const elementCloseButton = elementAddModal.querySelector("#element-add-close");
 const elementList = document.querySelector(".elements__list");
-const elementTemplate =
-  document.querySelector("#element-template").content.firstElementChild;
-const elementAddForm = elementAddModal.querySelector("#element-add-form");
+const elementTemplate =document.querySelector("#element-template").content.firstElementChild;
+const elementAddForm = elementAddModal.querySelector("#new-place-form");
+const elementLikeButton = document.querySelector(".element__like-button");
 
 const modalImage = document.querySelector("#element-modal-image");
 const modalCaption = document.querySelector("#element-modal-caption");
@@ -89,10 +87,53 @@ function deleteElement(e) {
   e.target.closest(".element").remove();
 }
 
+const modalInputs = Array.from(elementImageModal.querySelectorAll(".modal__input"));
+
+/* event Listeners */
+
+elementImageModal.addEventListener("mousedown", handlePopupClose);
+
+profileEditModal.addEventListener("mousedown", handlePopupClose);
+
+elementAddModal.addEventListener("mousedown", handlePopupClose);
+
+elementAddButton.addEventListener("click", () => {
+  openPopUp(elementAddModal);
+});
+
+profileEditButton.addEventListener("click", () => {
+  profileTitleInput.value = profileTitle.textContent;
+  profileDescriptionInput.value = profileDescription.textContent;
+  openPopUp(profileEditModal);
+});
+
+profileEditForm.addEventListener("submit", handleProfileEditSubmit);
+
+
+
+elementAddForm.addEventListener("submit", handleElementImageModal);
+
 //global generic functions
+
+function closeWithEsc(evt) {
+  if (evt.key === "Escape") {
+    const activeModal = document.querySelector(".modal_opened");
+    closePopUp(activeModal);
+  }
+}
+
+function handlePopupClose(evt) {
+  if (
+    evt.target.classList.contains("modal") ||
+    evt.target.classList.contains("modal__close")
+  ) {
+    closePopUp(evt.currentTarget);
+  }
+}
 
 function closePopUp(popUp) {
   popUp.classList.remove("modal_opened");
+  popUp.addEventListener("keyup", closeWithEsc);
 }
 
 function openPopUp(popUp) {
@@ -112,14 +153,6 @@ function handleProfileEditSubmit(e) {
   closePopUp(profileEditModal);
 }
 
-/**
-=========================================================
-javascript for app
-=========================================================
-elements hooks for app
-=========================================================
-heavy lifting
-**/
 profileEditForm.addEventListener("submit", handleProfileEditSubmit);
 
 profileCloseButton.addEventListener("click", () => {
@@ -156,8 +189,8 @@ elementImageModalClose.addEventListener("click", () => {
 
 elementAddForm.addEventListener("submit", (e) => {
   e.preventDefault();
-  const name = e.target.title.value;
-  const url = e.target.url.value;
+  const name = elementTitleInput.value; // updated to the correct input field
+  const url = elementImageInput.value; // updated to the correct input field
   const elementView = getElementView({ name, url });
   renderElement(elementView, elementList);
   closePopUp(elementAddModal);
@@ -175,7 +208,7 @@ const saveBtn = document.getElementById("save");
 const nameErrorMessage = document.getElementById("name-error-message");
 const aboutErrorMessage = document.getElementById("about-error-message");
 
-function validateForm() {
+function validateProfileForm() {
   if (nameInput.checkValidity() && aboutInput.checkValidity()) {
     saveBtn.classList.remove("inactive");
     saveBtn.disabled = false;
@@ -199,12 +232,50 @@ function validateForm() {
   }
 }
 
-function handleEscKey(event) {
-  if (event.keyCode === 27) {
-    closePopUp(profileEditModal);
+function validateNewPlaceForm() {
+  const titleInput = document.querySelector("#element-title-input");
+  const urlInput = document.querySelector("#element-image-input");
+  const submitButton = document.querySelector("#add");
+
+  // Validate Title field
+  const titleError = document.querySelector('#title-error-message');
+  if (titleInput.value.length < 1 || titleInput.value.length > 30) {
+    titleInput.classList.add("modal__input_type_error");
+    titleError.textContent = "Title must be between 1 and 30 characters.";
+    titleError.classList.add("modal__error_visible");
+  } else {
+    titleInput.classList.remove("modal__input_type_error");
+    titleError.textContent = '';
+    titleError.classList.remove("modal__error_visible");
+  }
+
+  // Validate URL field
+  const urlError = document.querySelector('#image-error-message');
+  const urlPattern = /^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([/\w .-]*)*\/?$/;
+  if (!urlPattern.test(urlInput.value)) {
+    urlInput.classList.add("modal__input_type_error");
+    urlError.textContent = "Please enter a valid URL.";
+    urlError.classList.add("modal__error_visible");
+  } else {
+    urlInput.classList.remove("modal__input_type_error");
+    urlError.textContent = '';
+    urlError.classList.remove("modal__error_visible");
+  }
+
+  // Toggle submit button based on overall form validity
+  const isFormValid = titleInput.validity.valid && urlInput.validity.valid;
+  
+  if (isFormValid) {
+    submitButton.classList.remove("modal__button_disabled");
+    submitButton.disabled = false;
+  } else {
+    submitButton.classList.add("modal__button_disabled");
+    submitButton.disabled = true;
   }
 }
 
-nameInput.addEventListener("input", validateForm);
-aboutInput.addEventListener("input", validateForm);
-document.addEventListener("keydown", handleEscKey);
+nameInput.addEventListener("input", validateProfileForm);
+aboutInput.addEventListener("input", validateProfileForm);
+elementAddForm.addEventListener("input", validateNewPlaceForm);
+
+document.addEventListener("keydown", closeWithEsc);
