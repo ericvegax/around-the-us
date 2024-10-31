@@ -28,68 +28,57 @@ const initializeCards = [
     //object 6
     name: "Lago di Braies",
     url: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/lago.jpg",
-  },
+  }
 ];
 
-/**  profile **/
-const profileEditButton = document.querySelector("#profile-edit-button");
+///////////////////////////////////
+/* variables - constants */
+///////////////////////////////////
+
+/**  profile modal **/
 const profileEditModal = document.querySelector("#profile-edit-modal");
-const profileCloseButton = document.querySelector("#modal-close-button");
-const profileTitle = document.querySelector("#profile-title");
-const profileDescription = document.querySelector("#profile-descr");
-const profileTitleInput = document.querySelector("#profile-title-input");
-const profileDescriptionInput = document.querySelector("#profile-descr-input");
+const profileEditButton = document.querySelector(".profile__edit-button");
+const profileEditCloseButton = document.querySelector(
+  "#modal-profile-close-button"
+);
+const profileTitleInput = document.querySelector("#title-input");
+const profileDescriptionInput = document.querySelector("#profile-input");
+const profileTitle = document.querySelector(".profile__title");
+const profileDescription = document.querySelector(".profile__descr");
 const profileEditForm = profileEditModal.querySelector("#profile-edit-form");
 
-/**  element **/
-const elementAddButton = document.querySelector("#element-add-button");
+/**  element modal **/
 const elementAddModal = document.querySelector("#element-add-modal");
-const elementTitle = document.querySelector("#element-title");
-const elementImage = document.querySelector("#element-image");
-const elementTitleInput = document.querySelector("#element-title-input");
-const elementImageInput = document.querySelector("#element-image-input");
+const elementAddButton = document.querySelector(".profile__add-button");
 const elementCloseButton = elementAddModal.querySelector("#element-add-close");
-const elementList = document.querySelector(".elements__list");
-const elementTemplate =document.querySelector("#element-template").content.firstElementChild;
-const elementAddForm = elementAddModal.querySelector("#new-place-form");
-const elementLikeButton = document.querySelector(".element__like-button");
+const elementAddForm = elementAddModal.querySelector("#element-add-form");
 
+/*URL List*/
+const elementList = document.querySelector(".elements__list");
+const elNameInput = elementAddModal.querySelector("#element-input");
+const elUrlInput = elementAddModal.querySelector("#image-input");
+
+// images and popup modal
+const elementImageModal = document.querySelector("#element-image-modal");
 const modalImage = document.querySelector("#element-modal-image");
 const modalCaption = document.querySelector("#element-modal-caption");
-const elementImageModal = document.querySelector("#element-image-modal");
 const elementImageModalClose = document.querySelector("#element-image-close");
+const elSaveButton = elementImageModal.querySelector("#imageSubmitButton");
 
-///////////////////////////////////////
-function getElementView(elementData) {
-  const element = elementTemplate.cloneNode(true);
-  const imageElement = element.querySelector(".element__img");
-  const titleElement = element.querySelector(".element__text");
-  const likeButton = element.querySelector(".element__like-button");
-  const elementDeleteButton = element.querySelector("#element-delete-button");
+//array of data element in elements
+const elementGallery = document.querySelector(".elements__list");
+const elementTemplate = document
+  .querySelector("#element-template")
+  .content.querySelector(".el__element");
 
-  likeButton.addEventListener("click", () => {
-    likeButton.classList.toggle("element__like-button_active");
-  });
-
-  elementDeleteButton.addEventListener("click", deleteElement);
-
-  imageElement.addEventListener("click", () => {
-    handleElementImageModal(elementData);
-  });
-
-  imageElement.src = elementData.url;
-  imageElement.alt = elementData.name;
-  titleElement.textContent = elementData.name;
-  return element;
-}
-
-function deleteElement(e) {
-  e.target.closest(".element").remove();
-}
-
-const modalInputs = Array.from(elementImageModal.querySelectorAll(".modal__input"));
+const modalInputs = Array.from(
+  elementImageModal.querySelectorAll(".modal__input")
+);
 
 /* event Listeners */
+initializeCards.forEach((elementData) => {
+  renderElement(elementData);
+});
 
 elementImageModal.addEventListener("mousedown", handlePopupClose);
 
@@ -98,27 +87,25 @@ profileEditModal.addEventListener("mousedown", handlePopupClose);
 elementAddModal.addEventListener("mousedown", handlePopupClose);
 
 elementAddButton.addEventListener("click", () => {
-  openPopUp(elementAddModal);
+  openModal(elementAddModal);
 });
 
 profileEditButton.addEventListener("click", () => {
   profileTitleInput.value = profileTitle.textContent;
   profileDescriptionInput.value = profileDescription.textContent;
-  openPopUp(profileEditModal);
+  openModal(profileEditModal);
 });
 
 profileEditForm.addEventListener("submit", handleProfileEditSubmit);
 
-
-
 elementAddForm.addEventListener("submit", handleElementImageModal);
 
-//global generic functions
+// Functions
 
-function closeWithEsc(evt) {
+function handleEscKey(evt) {
   if (evt.key === "Escape") {
     const activeModal = document.querySelector(".modal_opened");
-    closePopUp(activeModal);
+    closeModal(activeModal);
   }
 }
 
@@ -127,155 +114,80 @@ function handlePopupClose(evt) {
     evt.target.classList.contains("modal") ||
     evt.target.classList.contains("modal__close")
   ) {
-    closePopUp(evt.currentTarget);
+    closeModal(evt.currentTarget);
   }
 }
 
-function closePopUp(popUp) {
-  popUp.classList.remove("modal_opened");
-  popUp.addEventListener("keyup", closeWithEsc);
+function getElementView(elementData) {
+  const elementCardTemp = elementTemplate.cloneNode(true);
+  const imageElement = elementCardTemp.querySelector(".element__img");
+  const titleElement = elementCardTemp.querySelector(".element__text");
+  const likeButton = elementCardTemp.querySelector(".element__like-button");
+  const elementDeleteButton = elementCardTemp.querySelector(
+    ".element__delete-button"
+  );
+
+  likeButton.addEventListener("click", () => {
+    likeButton.classList.toggle("element__like-button_active");
+  });
+
+  elementDeleteButton.addEventListener("click", () => elementCardTemp.remove());
+
+  imageElement.src = elementData.url;
+  imageElement.alt = elementData.name;
+  titleElement.textContent = elementData.name;
+
+  imageElement.addEventListener("click", () => {
+    modalImage.src = elementData.url;
+    modalImage.alt = elementData.name;
+    modalCaption.textContent = elementData.name;
+    openModal(elementImageModal);
+  });
+  return elementCardTemp;
 }
 
-function openPopUp(popUp) {
-  popUp.classList.add("modal_opened");
+function handleElementImageModal(evt) {
+  evt.preventDefault();
+
+  const newData = { name: elNameInput.value, url: elUrlInput.value };
+  renderElement(newData);
+  closeModal(elementAddModal);
+  evt.target.reset();
+
+  const createButton = elementAddForm.querySelector(".modal__button");
+  createButton.classList.add("modal__button_disabled");
+  createButton.disabled = true;
 }
 
-function renderElement(element, container) {
-  container.prepend(element);
+function deleteElement(evt) {
+  evt.target.closest(".element").remove();
 }
 
-//profile functions
-
-function handleProfileEditSubmit(e) {
-  e.preventDefault();
-  profileTitle.textContent = profileTitleInput.value;
-  profileDescription.textContent = profileDescriptionInput.value;
-  closePopUp(profileEditModal);
+function openModal(modal) {
+  modal.classList.add("modal_opened");
+  document.addEventListener("keyup", handleEscKey);
 }
 
-profileEditForm.addEventListener("submit", handleProfileEditSubmit);
-
-profileCloseButton.addEventListener("click", () => {
-  closePopUp(profileEditModal);
-});
-
-function handleElementImageModal(elementData) {
-  modalImage.src = elementData.url;
-  modalImage.alt = elementData.name;
-  modalCaption.textContent = elementData.name;
-  openPopUp(elementImageModal);
+function closeModal(modal) {
+  modal.classList.remove("modal_opened");
+  document.removeEventListener("keyup", handleEscKey);
 }
 
-// profile edit modal
-profileEditButton.addEventListener("click", () => {
-  profileTitleInput.value = profileTitle.textContent;
-  profileDescriptionInput.value = profileDescription.textContent;
-  openPopUp(profileEditModal);
-});
+function renderElement(elementData) {
+  elementGallery.prepend(getElementView(elementData));
+}
 
-// Element modal -- URL and IMAGEs
-
-elementAddButton.addEventListener("click", () => {
-  openPopUp(elementAddModal);
-});
-
-elementCloseButton.addEventListener("click", () => {
-  closePopUp(elementAddModal);
-});
-
-elementImageModalClose.addEventListener("click", () => {
-  closePopUp(elementImageModal);
-});
-
-elementAddForm.addEventListener("submit", (e) => {
-  e.preventDefault();
-  const name = elementTitleInput.value; // updated to the correct input field
-  const url = elementImageInput.value; // updated to the correct input field
-  const elementView = getElementView({ name, url });
-  renderElement(elementView, elementList);
-  closePopUp(elementAddModal);
-  elementAddForm.reset();
-});
-
-initializeCards.forEach((elementData) => {
-  const elementView = getElementView(elementData);
-  renderElement(elementView, elementList);
-});
-
-const nameInput = document.getElementById("profile-title-input");
-const aboutInput = document.getElementById("profile-descr-input");
-const saveBtn = document.getElementById("save");
-const nameErrorMessage = document.getElementById("name-error-message");
-const aboutErrorMessage = document.getElementById("about-error-message");
-
-function validateProfileForm() {
-  if (nameInput.checkValidity() && aboutInput.checkValidity()) {
-    saveBtn.classList.remove("inactive");
-    saveBtn.disabled = false;
-    nameErrorMessage.textContent = "";
-    aboutErrorMessage.textContent = "";
-  } else {
-    saveBtn.classList.add("inactive");
-    saveBtn.disabled = true;
-    if (nameInput.validity.valueMissing) {
-      nameErrorMessage.textContent = "Please enter your name.";
-    } else if (nameInput.validity.tooShort || nameInput.validity.tooLong) {
-      nameErrorMessage.textContent =
-        "Name must be between 2 and 40 characters.";
-    }
-    if (aboutInput.validity.valueMissing) {
-      aboutErrorMessage.textContent = "Please enter something about yourself.";
-    } else if (aboutInput.validity.tooShort || aboutInput.validity.tooLong) {
-      aboutErrorMessage.textContent =
-        "About must be between 2 and 200 characters.";
-    }
+function handleProfileEditSubmit(evt) {
+  evt.preventDefault();
+  if (
+    profileTitle &&
+    profileDescription &&
+    profileTitleInput &&
+    profileDescriptionInput
+  ) {
+    profileTitle.textContent = profileTitleInput.value;
+    profileDescription.textContent = profileDescriptionInput.value;
+    closeModal(profileEditModal);
+    evt.target.reset();
   }
 }
-
-function validateNewPlaceForm() {
-  const titleInput = document.querySelector("#element-title-input");
-  const urlInput = document.querySelector("#element-image-input");
-  const submitButton = document.querySelector("#add");
-
-  // Validate Title field
-  const titleError = document.querySelector('#title-error-message');
-  if (titleInput.value.length < 1 || titleInput.value.length > 30) {
-    titleInput.classList.add("modal__input_type_error");
-    titleError.textContent = "Title must be between 1 and 30 characters.";
-    titleError.classList.add("modal__error_visible");
-  } else {
-    titleInput.classList.remove("modal__input_type_error");
-    titleError.textContent = '';
-    titleError.classList.remove("modal__error_visible");
-  }
-
-  // Validate URL field
-  const urlError = document.querySelector('#image-error-message');
-  const urlPattern = /^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([/\w .-]*)*\/?$/;
-  if (!urlPattern.test(urlInput.value)) {
-    urlInput.classList.add("modal__input_type_error");
-    urlError.textContent = "Please enter a valid URL.";
-    urlError.classList.add("modal__error_visible");
-  } else {
-    urlInput.classList.remove("modal__input_type_error");
-    urlError.textContent = '';
-    urlError.classList.remove("modal__error_visible");
-  }
-
-  // Toggle submit button based on overall form validity
-  const isFormValid = titleInput.validity.valid && urlInput.validity.valid;
-  
-  if (isFormValid) {
-    submitButton.classList.remove("modal__button_disabled");
-    submitButton.disabled = false;
-  } else {
-    submitButton.classList.add("modal__button_disabled");
-    submitButton.disabled = true;
-  }
-}
-
-nameInput.addEventListener("input", validateProfileForm);
-aboutInput.addEventListener("input", validateProfileForm);
-elementAddForm.addEventListener("input", validateNewPlaceForm);
-
-document.addEventListener("keydown", closeWithEsc);
