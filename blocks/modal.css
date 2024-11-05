@@ -35,7 +35,6 @@
   border-radius: 10px;
   position: relative;
   width: 430px;
-  /*min-width: 430px;*/
   min-height: 330px;
 }
 
@@ -78,12 +77,15 @@
 .modal__input {
   font-family: "Inter", Arial, sans-serif;
   height: 50px;
+  width: 100%;
   border-top: 1px;
   border-right: 1px;
   border-left: 1px;
   border-color: rgba(0, 0, 0, 0.2);
   margin-bottom: 30px;
   padding: 0;
+  position: relative;
+  overflow: hidden;
 }
 
 .modal__form-input::placeholder {
@@ -135,12 +137,21 @@
   margin: 10px 0 0;
 }
 
+.modal__input-container {
+  position: relative;
+  display: flex;
+  flex-direction: column-reverse;
+}
+
 .modal__error {
   color: #ff0000;
   opacity: 0;
   font-size: 12px;
   font-weight: 400;
   line-height: 1.2;
+  position: absolute;
+  margin: 0;
+  padding: 0;
 }
 
 .modal__input_type_error {
