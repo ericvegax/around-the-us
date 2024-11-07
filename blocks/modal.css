@@ -170,21 +170,26 @@
   opacity: 1;
 }
 
-@media screen and (max-width: 545px) {
-  .modal__close {
-    width: 32px;
-    height: 32px;
-    right: 0;
-  }
-
-  .modal__close_image {
-    top: -35px;
-    right: -35px;
-  }
-}
-
-@media screen and (max-width: 486px) {
+@media screen and (max-width: 540px) {
   .modal__container {
     padding: 25px 22px;
+  }
+  .modal__close {
+    width: 26px;
+    height: 26px;
+    left: calc(100% - 32px);
+    bottom: calc(100% + 13px);
+  }
+  .modal__heading {
+    font-size: 18px;
+    margin-bottom: 50px;
+  }
+  .modal__button {
+    font-size: 14px;
+    line-height: 1.21;
+  }
+
+  .modal__error {
+    top: 55px;
   }
 }
