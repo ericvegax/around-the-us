@@ -86,3 +86,5 @@ const configurationObjects = {
 };
 
 enableValidation(configurationObjects);
+
+export default configurationObjects;
