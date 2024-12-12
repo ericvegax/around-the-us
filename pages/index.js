@@ -38,10 +38,12 @@ document.addEventListener("DOMContentLoaded", () => {
   const profileTitle = document.querySelector(".profile__title");
   const profileDescription = document.querySelector(".profile__descr");
   const profileEditForm = profileEditModal.querySelector("#profile-edit-form");
+  const profileModalCloseButton = profileEditModal.querySelector("#modal-profile-close-button");
 
   const elementAddModal = document.querySelector("#element-add-modal");
   const elementAddButton = document.querySelector(".profile__add-button");
   const elementAddForm = elementAddModal.querySelector("#element-add-form");
+  const elementCloseButton = elementAddModal.querySelector("#element-add-close");
 
   const elementList = document.querySelector(".elements__list");
   const elNameInput = elementAddModal.querySelector("#element-input");
@@ -93,6 +95,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Event listeners
   elementAddButton.addEventListener("click", () => openModal(elementAddModal));
+  elementCloseButton.addEventListener("click", () => closeModal(elementAddModal));
+  elementAddModal.addEventListener("mousedown", handlePopupClose);
+
+  profileEditModal.addEventListener("mousedown", handlePopupClose);
+  profileModalCloseButton.addEventListener("click", () => closeModal(profileEditModal));
+  
   profileEditButton.addEventListener("click", () => {
     profileTitleInput.value = profileTitle.textContent;
     profileDescriptionInput.value = profileDescription.textContent;
