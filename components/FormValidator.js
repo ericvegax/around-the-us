@@ -1,5 +1,3 @@
-import '../scripts/validate.js';
-import configurationObjects from '../scripts/validate.js';
 
 export default class FormValidator {
   constructor(settings, formElement) {
@@ -78,5 +76,3 @@ export default class FormValidator {
     this._toggleButtonState();
   }
 }
-
-export { configurationObjects }

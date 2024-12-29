@@ -19,7 +19,6 @@ export default class Card {
     this._deleteButton = this._element.querySelector(
       ".element__delete-button"
     );
-    this._cardImage = this._element.querySelector(".element__img");
 
     this._likeButton.addEventListener("click", () => {
       this._likeButton.classList.toggle("element__like-button_active");
@@ -36,8 +35,9 @@ export default class Card {
 
   generateCard() {
     this._element = this._getTemplate();
-    this._cardImage = this._element.querySelector(".element__img");
     this._element.querySelector(".element__text").textContent = this._name;
+    this._cardImage = this._element.querySelector(".element__img");
+    
     this._cardImage.src = this._link;
     this._cardImage.alt = this._name;
 

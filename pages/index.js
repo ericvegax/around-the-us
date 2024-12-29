@@ -1,5 +1,5 @@
 import Card from "../components/Card.js";
-import FormValidator, { configurationObjects } from "../components/FormValidator.js";
+import FormValidator from "../components/FormValidator.js";
 
 document.addEventListener("DOMContentLoaded", () => {
   // Initial cards array
@@ -30,6 +30,16 @@ document.addEventListener("DOMContentLoaded", () => {
     },
   ];
 
+  const configObjects = {
+    formSelector: ".modal__form",
+    inputSelector: ".modal__input",
+    submitButtonSelector: ".modal__button",
+    inactiveButtonClass: "modal__button_disabled",
+    inputErrorClass: "modal__input_type_error",
+    errorClass: "modal__error_visible",
+  };
+
+
   // Element selectors
   const profileEditModal = document.querySelector("#profile-edit-modal");
   const profileEditButton = document.querySelector(".profile__edit-button");
@@ -38,11 +48,13 @@ document.addEventListener("DOMContentLoaded", () => {
   const profileTitle = document.querySelector(".profile__title");
   const profileDescription = document.querySelector(".profile__descr");
   const profileEditForm = profileEditModal.querySelector("#profile-edit-form");
+  // const profileForm = document.forms["profile-form"];
   const profileModalCloseButton = profileEditModal.querySelector("#modal-profile-close-button");
 
   const elementAddModal = document.querySelector("#element-add-modal");
   const elementAddButton = document.querySelector(".profile__add-button");
   const elementAddForm = elementAddModal.querySelector("#element-add-form");
+  // const cardForm = document.forms["card-form"];
   const elementCloseButton = elementAddModal.querySelector("#element-add-close");
 
   const elementList = document.querySelector(".elements__list");
@@ -96,6 +108,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // Event listeners
   elementAddButton.addEventListener("click", () => openModal(elementAddModal));
   elementCloseButton.addEventListener("click", () => closeModal(elementAddModal));
+  elementImageModal.addEventListener("click", () => closeModal(elementImageModal));
   elementAddModal.addEventListener("mousedown", handlePopupClose);
 
   profileEditModal.addEventListener("mousedown", handlePopupClose);
@@ -118,7 +131,7 @@ document.addEventListener("DOMContentLoaded", () => {
     evt.preventDefault();
     const newData = { name: elNameInput.value, url: elUrlInput.value };
     const card = new Card(newData, cardSelector, handleImageClick);
-    elementList.append(card.generateCard());
+    elementList.prepend(card.generateCard());
     closeModal(elementAddModal);
     elementAddForm.reset();
   });
@@ -126,7 +139,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // Form validation
   const cardFormElement = document.querySelector("#element-add-form");
   if (cardFormElement) {
-    const cardFormValidator = new FormValidator(configurationObjects, cardFormElement);
+    const cardFormValidator = new FormValidator(configObjects, cardFormElement); // @TODO: Fix this configObjects variable
     cardFormValidator.enableValidation();
   }
 });
