@@ -30,16 +30,6 @@ document.addEventListener("DOMContentLoaded", () => {
     },
   ];
 
-  const configObjects = {
-    formSelector: ".modal__form",
-    inputSelector: ".modal__input",
-    submitButtonSelector: ".modal__button",
-    inactiveButtonClass: "modal__button_disabled",
-    inputErrorClass: "modal__input_type_error",
-    errorClass: "modal__error_visible",
-  };
-
-
   // Element selectors
   const profileEditModal = document.querySelector("#profile-edit-modal");
   const profileEditButton = document.querySelector(".profile__edit-button");
@@ -64,6 +54,19 @@ document.addEventListener("DOMContentLoaded", () => {
   const elementImageModal = document.querySelector("#element-image-modal");
   const modalImage = document.querySelector("#element-modal-image");
   const modalCaption = document.querySelector("#element-modal-caption");
+
+  const configObjects = {
+    formSelector: ".modal__form",
+    inputSelector: ".modal__input",
+    submitButtonSelector: ".modal__button",
+    inactiveButtonClass: "modal__button_disabled",
+    inputErrorClass: "modal__input_type_error",
+    errorClass: "modal__error_visible",
+  };
+
+  const cardFormElement = document.querySelector("#element-add-form");
+  const cardFormValidator = new FormValidator(configObjects, cardFormElement);
+  const profileFormValidator = new FormValidator(configObjects, profileEditForm);
 
   // Helper functions
   function openModal(modal) {
@@ -134,12 +137,12 @@ document.addEventListener("DOMContentLoaded", () => {
     elementList.prepend(card.generateCard());
     closeModal(elementAddModal);
     elementAddForm.reset();
+    cardFormValidator.resetValidation(); // resets the submit button again
   });
 
   // Form validation
-  const cardFormElement = document.querySelector("#element-add-form");
   if (cardFormElement) {
-    const cardFormValidator = new FormValidator(configObjects, cardFormElement); // @TODO: Fix this configObjects variable
+    profileFormValidator.enableValidation();
     cardFormValidator.enableValidation();
   }
 });
