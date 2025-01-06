@@ -64,8 +64,7 @@ document.addEventListener("DOMContentLoaded", () => {
     errorClass: "modal__error_visible",
   };
 
-  const cardFormElement = document.querySelector("#element-add-form");
-  const cardFormValidator = new FormValidator(configObjects, cardFormElement);
+  const cardFormValidator = new FormValidator(configObjects, elementAddForm);
   const profileFormValidator = new FormValidator(configObjects, profileEditForm);
 
   // Helper functions
@@ -102,15 +101,18 @@ document.addEventListener("DOMContentLoaded", () => {
     openModal(elementImageModal);
   }
 
+  function createCard(data, selector, callback) {
+    const cardElement = new Card(data, selector, callback);
+    return cardElement;
+  }
+
   // Render initial cards
   initializeCards.forEach((cardData) => {
-    const card = new Card(cardData, cardSelector, handleImageClick);
-    elementList.append(card.generateCard());
+    elementList.append(createCard(cardData, cardSelector, handleImageClick).generateCard());
   });
 
   // Event listeners
   elementAddButton.addEventListener("click", () => openModal(elementAddModal));
-  elementCloseButton.addEventListener("click", () => closeModal(elementAddModal));
   elementImageModal.addEventListener("click", () => closeModal(elementImageModal));
   elementAddModal.addEventListener("mousedown", handlePopupClose);
 
@@ -133,15 +135,14 @@ document.addEventListener("DOMContentLoaded", () => {
   elementAddForm.addEventListener("submit", (evt) => {
     evt.preventDefault();
     const newData = { name: elNameInput.value, url: elUrlInput.value };
-    const card = new Card(newData, cardSelector, handleImageClick);
-    elementList.prepend(card.generateCard());
+    elementList.prepend(createCard(newData, cardSelector, handleImageClick).generateCard());
     closeModal(elementAddModal);
     elementAddForm.reset();
     cardFormValidator.resetValidation(); // resets the submit button again
   });
 
   // Form validation
-  if (cardFormElement) {
+  if (elementAddForm) {
     profileFormValidator.enableValidation();
     cardFormValidator.enableValidation();
   }
