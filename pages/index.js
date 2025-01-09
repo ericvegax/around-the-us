@@ -50,8 +50,10 @@ document.addEventListener("DOMContentLoaded", () => {
   const elementList = document.querySelector(".elements__list");
   const elNameInput = elementAddModal.querySelector("#element-input");
   const elUrlInput = elementAddModal.querySelector("#image-input");
+  const elModalButton = document.querySelector(".modal__button");
 
   const elementImageModal = document.querySelector("#element-image-modal");
+  const elementImageModalCloseButton = elementImageModal.querySelector("#element-image-close");
   const modalImage = document.querySelector("#element-modal-image");
   const modalCaption = document.querySelector("#element-modal-caption");
 
@@ -101,23 +103,28 @@ document.addEventListener("DOMContentLoaded", () => {
     openModal(elementImageModal);
   }
 
+  /**
+   * 
+   * @param {*} data the name and url of the generated card
+   * @param {*} selector the element to be used as a template for generated cards
+   * @param {*} callback function to add behavior to generated cards
+   * @returns 
+   */
   function createCard(data, selector, callback) {
-    const cardElement = new Card(data, selector, callback);
-    return cardElement;
+    return new Card(data, selector, callback).generateCard();
   }
 
   // Render initial cards
   initializeCards.forEach((cardData) => {
-    elementList.append(createCard(cardData, cardSelector, handleImageClick).generateCard());
+    elementList.append(createCard(cardData, cardSelector, handleImageClick));
   });
 
   // Event listeners
   elementAddButton.addEventListener("click", () => openModal(elementAddModal));
-  elementImageModal.addEventListener("click", () => closeModal(elementImageModal));
+  elementImageModal.addEventListener("mousedown", handlePopupClose);
   elementAddModal.addEventListener("mousedown", handlePopupClose);
 
   profileEditModal.addEventListener("mousedown", handlePopupClose);
-  profileModalCloseButton.addEventListener("click", () => closeModal(profileEditModal));
   
   profileEditButton.addEventListener("click", () => {
     profileTitleInput.value = profileTitle.textContent;
@@ -135,10 +142,10 @@ document.addEventListener("DOMContentLoaded", () => {
   elementAddForm.addEventListener("submit", (evt) => {
     evt.preventDefault();
     const newData = { name: elNameInput.value, url: elUrlInput.value };
-    elementList.prepend(createCard(newData, cardSelector, handleImageClick).generateCard());
+    elementList.prepend(createCard(newData, cardSelector, handleImageClick));
     closeModal(elementAddModal);
     elementAddForm.reset();
-    cardFormValidator.resetValidation(); // resets the submit button again
+    cardFormValidator.disableButton();
   });
 
   // Form validation
