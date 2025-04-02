@@ -7,7 +7,6 @@
     <meta name="author" content="joshua b zimmerman" />
     <meta name="keywords" content="parks, us" />
     <title>Around the U.S.</title>
-    <link rel="stylesheet" href="./pages/index.css" />
     <link rel="icon" href="./favicon.ico" />
   </head>
   <body class="page">
@@ -15,13 +14,13 @@
       <header class="header">
         <img
           class="header__img"
-          src="./images/icons/logo-AroundTheWorld__White.svg"
+          src="<%= require('./images/icons/logo-AroundTheWorld__White.svg') %>"
           alt="around the world U.S."
         />
       </header>
       <main class="content">
         <section class="profile page__section">
-          <img src="./images/avatar.jpg" alt="avatar" class="profile__img" />
+          <img src="<%= require('./images/avatar.jpg') %>" alt="avatar" class="profile__img" />
           <div class="profile__info">
             <h1 class="profile__title">Joshua Zimmerman</h1>
             <button type="button" class="profile__edit-button"></button>
@@ -55,6 +54,7 @@
               class="modal__input"
               type="text"
               placeholder="name"
+              name="name"
               id="title-input"
               minlength="2"
               maxlength="40"
@@ -68,6 +68,7 @@
               class="modal__input"
               type="text"
               placeholder="description"
+              name="job"
               id="profile-input"
               minlength="2"
               maxlength="200"
@@ -155,6 +156,6 @@
       </li>
     </template>
     <!--/scripts-->
-    <script type="module" src="./pages/index.js"></script>
+    <!-- <script type="module" src="./pages/index.js"></script> -->
   </body>
 </html>

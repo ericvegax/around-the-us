@@ -52,7 +52,7 @@
   height: 24px;
   width: 24px;
   background-size: auto auto;
-  background: transparent url("../images/edit-icon.svg") center no-repeat;
+  background: transparent url(../images/edit-icon.svg) center no-repeat;
   border: white 1px solid;
   grid-area: button;
   margin-left: 18px;
@@ -63,7 +63,7 @@
   height: 50px;
   width: 150px;
   margin-left: auto;
-  background: transparent url("../images/add-icon.svg") center no-repeat;
+  background: transparent url(../images/add-icon.svg) center no-repeat;
   border: white 2px solid;
   cursor: pointer;
   border-radius: 2px;
