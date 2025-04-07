@@ -25,9 +25,6 @@ import Section from "../utils/Section.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import PopupWithImage from "../components/PopupWithImage.js";
 
-//!todo Fix the Profile Submission Bug
-//!todo Figure out why out Input Data for our Profile Form refuses to be displayed to the client
-
 document.addEventListener("DOMContentLoaded", () => {
   const cardFormValidator = new FormValidator(configObjects, elementAddForm);
   const profileFormValidator = new FormValidator(

@@ -12,7 +12,6 @@ export default class PopupWithForm extends Popup {
 
   close() {
     this._formElement.reset();
-    // this._formElement.removeEventListener('submit', this._submitForm);
     super.close();
   }
 
@@ -21,7 +20,6 @@ export default class PopupWithForm extends Popup {
 
     this._formInputs.forEach((input) => {
       values[input.name] = input.value;
-      console.log(`Key: ${input.name} Value: ${input.value}`);
     });
 
     return values;
