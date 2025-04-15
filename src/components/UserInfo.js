@@ -1,4 +1,3 @@
-import { profileName, profileJob } from "../utils/constants";
 
 export default class UserInfo {
     constructor(nameElement, jobElement) {

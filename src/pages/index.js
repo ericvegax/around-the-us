@@ -21,7 +21,7 @@ import {
   elementImageModal,
   cardSelector,
 } from "../utils/constants.js";
-import Section from "../utils/Section.js";
+import Section from "../components/Section.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import PopupWithImage from "../components/PopupWithImage.js";
 
@@ -36,13 +36,14 @@ document.addEventListener("DOMContentLoaded", () => {
     "#profile-edit-modal",
     handleProfileFormSubmit
   );
+
   const addNewCardPopup = new PopupWithForm(
     "#element-add-modal",
     handleNewCardSubmit
   );
+
   const cardImagePopup = new PopupWithImage("#element-image-modal");
 
-  // Renders a section via the Section utility class
   const section = new Section(
     {
       items: initializeCards,
@@ -74,6 +75,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const newElementData = renderCard({ name: title, url: url });
     section.addItem(newElementData);
     addNewCardPopup.close();
+    cardFormValidator.disableButton();
   }
 
   function handleCardImageClick(caption, imageUrl) {
@@ -100,7 +102,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   elementAddButton.addEventListener("click", () => {
     addNewCardPopup.open();
-    cardFormValidator.resetValidation();
   });
 
   profileFormValidator.enableValidation();
